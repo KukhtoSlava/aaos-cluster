@@ -1,0 +1,52 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_app {
+    name: "Cluster",
+    manifest: "AndroidManifest.xml",
+    srcs: ["src/**/*.kt"],
+    resource_dirs: ["res"],
+    libs: ["android.car"],
+    static_libs: [
+        "androidx.activity_activity-compose",
+        "androidx.activity_activity",
+        "androidx.annotation_annotation",
+        "androidx.compose.foundation_foundation",
+        "androidx.compose.material3_material3",
+        "androidx.compose.runtime_runtime",
+        "androidx.compose.ui_ui",
+        "androidx.compose.ui_ui-graphics",
+        "androidx.lifecycle_lifecycle-runtime-ktx",
+        "androidx.lifecycle_lifecycle-viewmodel",
+        "androidx.lifecycle_lifecycle-viewmodel-compose",
+        "androidx.lifecycle_lifecycle-viewmodel-ktx",
+        "kotlinx_coroutines",
+        "kotlinx_coroutines_android",
+        "dagger2",
+        "jsr330",
+    ],
+    plugins: ["dagger2-compiler"],
+    kotlincflags: ["-Xjvm-default=all"],
+    privileged: true,
+    certificate: "platform",
+    platform_apis: true,
+    system_ext_specific: true,
+    required: ["privapp-permissions-cluster"],
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-cluster",
+    src: "privapp-permissions-cluster.xml",
+    filename: "privapp-permissions-cluster.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "preinstalled-packages-cluster",
+    src: "preinstalled-packages-cluster.xml",
+    filename: "preinstalled-packages-cluster.xml",
+    sub_dir: "sysconfig",
+    product_specific: true,
+}

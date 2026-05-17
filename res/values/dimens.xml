@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Header / top bar -->
+    <dimen name="header_height">32dp</dimen>
+    <dimen name="header_dot_size">6dp</dimen>
+
+    <!-- Indicator bar at the bottom -->
+    <dimen name="telltale_bar_height">48dp</dimen>
+    <dimen name="telltale_icon_size">20dp</dimen>
+    <dimen name="turn_signal_size">28dp</dimen>
+
+    <!-- Circular gauges -->
+    <dimen name="gauge_size">210dp</dimen>
+    <dimen name="gauge_stroke">11dp</dimen>
+    <dimen name="gauge_value_bottom_offset">18dp</dimen>
+
+    <!-- Gear buttons (horizontal row) -->
+    <dimen name="gear_button_width">68dp</dimen>
+    <dimen name="gear_button_height">28dp</dimen>
+
+    <!-- Progress bars (fuel / temp) -->
+    <dimen name="bar_height">6dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_header">9sp</dimen>
+    <dimen name="text_gauge_value">26sp</dimen>
+    <dimen name="text_gauge_unit">8sp</dimen>
+    <dimen name="text_gear_display">44sp</dimen>
+    <dimen name="text_bar_label">8sp</dimen>
+
+    <!-- Spacing -->
+    <dimen name="spacing_xs">2dp</dimen>
+    <dimen name="spacing_s">4dp</dimen>
+    <dimen name="spacing_m">8dp</dimen>
+    <dimen name="spacing_l">8dp</dimen>
+    <dimen name="spacing_xl">12dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="padding_xs">2dp</dimen>
+    <dimen name="padding_s">4dp</dimen>
+    <dimen name="padding_m">6dp</dimen>
+    <dimen name="padding_l">8dp</dimen>
+    <dimen name="padding_xl">8dp</dimen>
+    <dimen name="padding_xxl">12dp</dimen>
+
+    <!-- Shape -->
+    <dimen name="border_stroke">0.5dp</dimen>
+    <dimen name="radius_xs">4dp</dimen>
+    <dimen name="radius_s">6dp</dimen>
+    <dimen name="radius_m">8dp</dimen>
+</resources>

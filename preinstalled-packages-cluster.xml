@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Declares which user types com.autobox.cluster is installed for.
+     Without this, UserSystemPackageInstaller rejects the package and
+     CarService cannot launch ClusterActivity. -->
+<config>
+    <install-in-user-type package="com.autobox.cluster">
+        <install-in user-type="FULL" />
+        <install-in user-type="SYSTEM" />
+    </install-in-user-type>
+</config>

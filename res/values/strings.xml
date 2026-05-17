@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cluster</string>
+
+    <!-- Odometer -->
+    <string name="odo_format">%1$06d</string>
+    <string name="odo_unit">km</string>
+
+    <!-- Gauges -->
+    <string name="speed_unit">km/h</string>
+    <string name="rpm_unit">×1000 RPM</string>
+
+    <!-- Bars -->
+    <string name="fuel_label">FUEL</string>
+    <string name="fuel_value_format">%1$d%%</string>
+    <string name="temp_label">TEMP</string>
+    <string name="temp_value_format">%1$d°C</string>
+
+    <!-- Gear selector -->
+    <string name="gear_park">P</string>
+    <string name="gear_reverse">R</string>
+    <string name="gear_neutral">N</string>
+    <string name="gear_drive">D</string>
+
+    <!-- Telltale labels -->
+    <string name="telltale_abs">ABS</string>
+    <string name="telltale_engine">ENG</string>
+    <string name="telltale_battery">BAT</string>
+    <string name="telltale_oil">OIL</string>
+    <string name="telltale_fuel">FUEL</string>
+    <string name="telltale_brake">BRAKE</string>
+    <string name="telltale_seatbelt">BELT</string>
+    <string name="telltale_high_beam">HIGH</string>
+    <string name="telltale_low_beam">LOW</string>
+    <string name="telltale_parking_lights">PARK</string>
+    <string name="telltale_tpms">TPMS</string>
+    <string name="telltale_turn_left">Turn left</string>
+    <string name="telltale_turn_right">Turn right</string>
+</resources>

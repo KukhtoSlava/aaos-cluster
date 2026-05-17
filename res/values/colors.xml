@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cluster_primary">#9B59FF</color>
+    <color name="cluster_on_primary">#FFFFFFFF</color>
+    <color name="cluster_secondary">#42A5F5</color>
+    <color name="cluster_on_secondary">#FFFFFFFF</color>
+    <color name="cluster_tertiary">#1D9E75</color>
+    <color name="cluster_on_tertiary">#FFFFFFFF</color>
+    <color name="cluster_error">#EF5350</color>
+    <color name="cluster_on_error">#FFFFFFFF</color>
+    <color name="cluster_background">#0A0A0A</color>
+    <color name="cluster_on_background">#FFFFFFFF</color>
+    <color name="cluster_surface">#111111</color>
+    <color name="cluster_on_surface">#FFFFFFFF</color>
+    <color name="cluster_on_surface_variant">#888888</color>
+    <color name="cluster_outline_variant">#333333</color>
+
+    <color name="cluster_green">#4CAF50</color>
+    <color name="cluster_blue">#42A5F5</color>
+    <color name="cluster_red">#F44336</color>
+    <color name="cluster_amber">#FFC107</color>
+    <color name="cluster_purple">#7F77DD</color>
+    <color name="cluster_dim_icon">#2A2A2A</color>
+    <color name="cluster_gauge_tick">#555555</color>
+    <color name="cluster_gauge_hub">#222222</color>
+    <color name="cluster_white">#FFFFFFFF</color>
+</resources>
