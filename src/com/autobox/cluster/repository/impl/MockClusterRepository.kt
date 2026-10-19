@@ -1,6 +1,7 @@
 package com.autobox.cluster.repository.impl
 
 import com.autobox.cluster.model.ClusterData
+import com.autobox.cluster.model.DriveMode
 import com.autobox.cluster.model.Gear
 import com.autobox.cluster.repository.ClusterRepository
 import javax.inject.Inject
@@ -101,6 +102,14 @@ class MockClusterRepository @Inject constructor() : ClusterRepository {
             Gear.D         -> (speed / 32f + sin(phase * 2).toFloat() * 0.15f).coerceIn(0.8f, 7.5f)
         }
 
+        // City and parking at 50, highway at 120, acceleration run at 90
+        val (speedLimit, driveMode) = when {
+            scenarioTick < 60  -> 50 to DriveMode.ECO
+            scenarioTick < 150 -> 120 to DriveMode.COMFORT
+            scenarioTick < 200 -> 90 to DriveMode.SPORT
+            else               -> 50 to DriveMode.ECO
+        }
+
         // Fuel drains slowly; auto-refuel at 10%
         val fuel = when {
             cur.fuelPercent <= 10          -> 100
@@ -119,6 +128,10 @@ class MockClusterRepository @Inject constructor() : ClusterRepository {
             fuelWarning        = true,
             coolantTempC       = coolant,
             odometerKm         = odo,
+            rangeKm            = fuel * 6,
+            outsideTempC       = 12,
+            speedLimitKmh      = speedLimit,
+            driveMode          = driveMode,
             absFault           = true,
             engineWarning      = true,
             batteryWarning     = true,

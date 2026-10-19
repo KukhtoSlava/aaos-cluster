@@ -9,7 +9,7 @@
     <uses-permission android:name="android.car.permission.CAR_POWERTRAIN"/>
     <!-- RPM, oil/coolant temp: ENGINE_RPM, ENGINE_OIL_TEMP, ENGINE_COOLANT_TEMP -->
     <uses-permission android:name="android.car.permission.CAR_ENGINE_DETAILED"/>
-    <!-- Fuel level: FUEL_LEVEL -->
+    <!-- Fuel level and range: FUEL_LEVEL, RANGE_REMAINING -->
     <uses-permission android:name="android.car.permission.CAR_ENERGY"/>
     <!-- Fuel capacity: INFO_FUEL_CAPACITY -->
     <uses-permission android:name="android.car.permission.CAR_INFO"/>
@@ -17,6 +17,8 @@
     <uses-permission android:name="android.car.permission.CAR_MILEAGE"/>
     <!-- ABS: ABS_ACTIVE -->
     <uses-permission android:name="android.car.permission.CAR_DYNAMICS_STATE"/>
+    <!-- Outside temperature: ENV_OUTSIDE_TEMPERATURE -->
+    <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT"/>
     <!-- Exterior lights and turn signals -->
     <uses-permission android:name="android.car.permission.CAR_EXTERIOR_LIGHTS"/>
     <uses-permission android:name="android.car.permission.READ_CAR_EXTERIOR_LIGHTS"/>

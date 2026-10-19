@@ -2,38 +2,48 @@
 <resources>
     <string name="app_name">Cluster</string>
 
-    <!-- Odometer -->
-    <string name="odo_format">%1$06d</string>
-    <string name="odo_unit">km</string>
-
     <!-- Gauges -->
-    <string name="speed_unit">km/h</string>
+    <string name="speed_unit">KM/H</string>
     <string name="rpm_unit">×1000 RPM</string>
 
-    <!-- Bars -->
-    <string name="fuel_label">FUEL</string>
-    <string name="fuel_value_format">%1$d%%</string>
-    <string name="temp_label">TEMP</string>
-    <string name="temp_value_format">%1$d°C</string>
+    <!-- Top bar -->
+    <string name="outside_temp_format">%1$d°C</string>
+    <string name="outside_temp_unknown">--°C</string>
+    <string name="drive_mode_label">MODE</string>
+    <string name="drive_mode_eco">ECO</string>
+    <string name="drive_mode_comfort">COMFORT</string>
+    <string name="drive_mode_sport">SPORT</string>
 
-    <!-- Gear selector -->
-    <string name="gear_park">P</string>
-    <string name="gear_reverse">R</string>
-    <string name="gear_neutral">N</string>
-    <string name="gear_drive">D</string>
+    <!-- Fuel / coolant -->
+    <string name="range_format">%1$d km</string>
+    <string name="range_unknown">-- km</string>
+    <string name="coolant_format">%1$d°</string>
 
-    <!-- Telltale labels -->
+    <!-- Odometer -->
+    <string name="odo_label">ODO</string>
+    <string name="odo_unit">km</string>
+
+    <!-- Speed limit sign, content description -->
+    <string name="speed_limit">Speed limit %1$d</string>
+
+    <!-- Gauge style switcher -->
+    <string name="gauge_style_round">Round dials</string>
+    <string name="gauge_style_arc">Arc scales</string>
+
+    <!-- Telltale content descriptions -->
     <string name="telltale_abs">ABS</string>
-    <string name="telltale_engine">ENG</string>
-    <string name="telltale_battery">BAT</string>
-    <string name="telltale_oil">OIL</string>
-    <string name="telltale_fuel">FUEL</string>
-    <string name="telltale_brake">BRAKE</string>
-    <string name="telltale_seatbelt">BELT</string>
-    <string name="telltale_high_beam">HIGH</string>
-    <string name="telltale_low_beam">LOW</string>
-    <string name="telltale_parking_lights">PARK</string>
-    <string name="telltale_tpms">TPMS</string>
-    <string name="telltale_turn_left">Turn left</string>
-    <string name="telltale_turn_right">Turn right</string>
+    <string name="telltale_engine">Check engine</string>
+    <string name="telltale_battery">Battery</string>
+    <string name="telltale_oil">Oil level</string>
+    <string name="telltale_fuel">Low fuel</string>
+    <string name="telltale_brake">Parking brake</string>
+    <string name="telltale_seatbelt">Seat belt</string>
+    <string name="telltale_high_beam">High beam</string>
+    <string name="telltale_low_beam">Low beam</string>
+    <string name="telltale_parking_lights">Parking lights</string>
+    <string name="telltale_tpms">Tyre pressure</string>
+    <string name="telltale_turn_left">Left turn signal</string>
+    <string name="telltale_turn_right">Right turn signal</string>
+    <string name="fuel_label">Fuel level</string>
+    <string name="coolant_label">Coolant temperature</string>
 </resources>

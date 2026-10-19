@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Cluster palette. OEMs can override any of the colours with an RRO. -->
 <resources>
-    <color name="cluster_primary">#9B59FF</color>
-    <color name="cluster_on_primary">#FFFFFFFF</color>
-    <color name="cluster_secondary">#42A5F5</color>
-    <color name="cluster_on_secondary">#FFFFFFFF</color>
-    <color name="cluster_tertiary">#1D9E75</color>
-    <color name="cluster_on_tertiary">#FFFFFFFF</color>
-    <color name="cluster_error">#EF5350</color>
-    <color name="cluster_on_error">#FFFFFFFF</color>
-    <color name="cluster_background">#0A0A0A</color>
-    <color name="cluster_on_background">#FFFFFFFF</color>
-    <color name="cluster_surface">#111111</color>
-    <color name="cluster_on_surface">#FFFFFFFF</color>
-    <color name="cluster_on_surface_variant">#888888</color>
-    <color name="cluster_outline_variant">#333333</color>
+    <!-- Ground and map -->
+    <color name="cluster_background">#05070A</color>
+    <color name="cluster_map">#0A0F15</color>
 
-    <color name="cluster_green">#4CAF50</color>
-    <color name="cluster_blue">#42A5F5</color>
-    <color name="cluster_red">#F44336</color>
-    <color name="cluster_amber">#FFC107</color>
-    <color name="cluster_purple">#7F77DD</color>
-    <color name="cluster_dim_icon">#2A2A2A</color>
-    <color name="cluster_gauge_tick">#555555</color>
-    <color name="cluster_gauge_hub">#222222</color>
-    <color name="cluster_white">#FFFFFFFF</color>
+    <!-- Accent: gauge fill, needle, current gear, drive mode -->
+    <color name="cluster_accent">#4FD1C5</color>
+
+    <!-- Text -->
+    <color name="cluster_text">#E8EEF4</color>
+    <color name="cluster_text_secondary">#9AA6B4</color>
+    <color name="cluster_text_muted">#7D8A99</color>
+    <color name="cluster_gear_inactive">#5B6775</color>
+    <color name="cluster_speeding">#FFB020</color>
+
+    <!-- Gauges -->
+    <color name="cluster_dial_face">#99080B0F</color>
+    <color name="cluster_dial_rim">#24788CA0</color>
+    <color name="cluster_dial_track">#18212B</color>
+    <color name="cluster_arc_track">#141B24</color>
+    <color name="cluster_tick_major">#C9D3DD</color>
+    <color name="cluster_tick_minor">#4A5663</color>
+    <color name="cluster_redline">#FF5A36</color>
+    <color name="cluster_redline_label">#FF6A48</color>
+    <color name="cluster_hub">#10161D</color>
+    <color name="cluster_hub_rim">#2A3542</color>
+    <color name="cluster_marker">#F2F5F8</color>
+
+    <!-- Fuel / coolant bars -->
+    <color name="cluster_bar_track">#18202A</color>
+    <color name="cluster_bar_fill">#C9D3DD</color>
+
+    <!-- Speed limit sign -->
+    <color name="cluster_limit_face">#F2F4F7</color>
+    <color name="cluster_limit_ring">#E5322D</color>
+    <color name="cluster_limit_text">#111418</color>
+
+    <!-- Floating panels: odometer pill, gauge style switcher -->
+    <color name="cluster_panel">#D10C1117</color>
+    <color name="cluster_panel_border">#1E2834</color>
+    <color name="cluster_switch_selected">#1F2A36</color>
+
+    <!-- Telltales (ISO 2575 colour groups) -->
+    <color name="cluster_telltale_off">#1F2832</color>
+    <color name="cluster_telltale_green">#3DDC84</color>
+    <color name="cluster_telltale_blue">#4D9FFF</color>
+    <color name="cluster_telltale_amber">#FFB020</color>
+    <color name="cluster_telltale_red">#FF4D4D</color>
 </resources>

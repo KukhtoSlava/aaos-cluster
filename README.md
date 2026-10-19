@@ -2,9 +2,19 @@
 
 A privileged system application for Android Automotive OS (AAOS) that reads live
 vehicle data through the Car Property API and renders an instrument cluster with
-speed, RPM, gear, fuel, coolant temperature, odometer and telltales.
+speed, RPM, gear, fuel and range, coolant temperature, odometer, outside
+temperature and telltales.
 
-![Cluster UI](design/cluster.png)
+The layout is a 1848x792 screen (the AutoBox emulator cluster display) with a
+full-bleed map area and two switchable gauge layouts.
+
+Round dials:
+
+![Cluster UI, round dials](design/cluster_round.png)
+
+Arc scales:
+
+![Cluster UI, arc scales](design/cluster_arc.png)
 
 ---
 
@@ -44,15 +54,31 @@ keeps the UI updated without blocking app startup.
 
 ## Features
 
-- Speed gauge in km/h
-- RPM gauge in x1000 RPM
-- Current gear display: P/R/N/D
-- Fuel bar: green normally, red when low
-- Coolant temperature bar in °C: blue when cold, green normal, red when hot
-- Odometer display in km
-- Live telltales for ABS, engine overheat, battery fault, oil level, seat belt,
-  TPMS, fuel, parking brake, low beam, high beam and turn signals
-- OEM-overridable colours in `res/values/colors.xml`
+- Two gauge styles, switched with the control in the bottom bar (cross-fade).
+  Only the speedometer and tachometer change; the top bar, speed limit sign,
+  telltales and bottom bar stay in place:
+  - **Round dials**: speedometer (0-220 km/h) left, tachometer (0-8 ×1000 RPM,
+    redline from 6.5) right
+  - **Arc scales**: segmented arcs on the screen edges with large speed and RPM readouts
+- Top bar: turn signals, P R N D strip, clock, outside temperature, drive mode
+- Map area under the gauges. Empty for now: the map is integrated next.
+- Speed turns amber above the speed limit
+- Fuel bar with remaining range, amber on low fuel
+- Coolant bar in °C, red at the engine warning temperature
+- Speed limit sign
+- Odometer in the bottom bar
+- Telltales in fixed slots, dimmed when off: parking lights, low beam, high beam,
+  seat belt, engine under the speedometer; ABS, battery, oil, parking brake,
+  TPMS, low fuel under the tachometer; turn signals with a shared 0.9 s flasher
+- Layout is drawn on a fixed 1848x792 canvas and scaled uniformly to the display
+- Saira font (OFL, `OFL-Saira.txt`), OEM-overridable colours in `res/values/colors.xml`
+
+### Mock values
+
+The emulator VHAL has no speed limit or drive mode property. `ClusterRepositoryImpl`
+fills them from `MOCK_SPEED_LIMIT_KMH` and `MOCK_DRIVE_MODE` in
+`repository/constants/ClusterDefaults.kt` until vendor properties exist.
+`MockClusterRepository` varies them with its driving scenario.
 
 ---
 
@@ -67,6 +93,8 @@ keeps the UI updated without blocking app startup.
 | `ENGINE_OIL_LEVEL` | global | enum | on-change | `oilWarning` — active when ≠ 2 (normal) |
 | `PERF_ODOMETER` | global | km | normal | `odometerKm` |
 | `FUEL_LEVEL` | global | mL | normal | `fuelPercent`; `fuelWarning` at ≤ 15% |
+| `RANGE_REMAINING` | global | m | normal | `rangeKm` (÷ 1000) |
+| `ENV_OUTSIDE_TEMPERATURE` | global | °C | normal | `outsideTempC` |
 | `INFO_FUEL_CAPACITY` | global | mL | read once | divisor for `fuelPercent` |
 | `ABS_ACTIVE` | global | boolean | on-change | `absEngaged` — ABS currently braking (transient) |
 | `0x21400002` (vendor) | global | INT32 | on-change | `absFault` — ABS fault requiring service (persistent); `absActive = absEngaged \|\| absFault` |
@@ -97,7 +125,8 @@ cd vendor/autobox/apps/Cluster
 ./test_properties.sh            # full run (drive → engine → fuel → odometer → telltales)
 ./test_properties.sh drive      # speed (km/h), all 4 gear positions, RPM
 ./test_properties.sh engine     # coolant temperature bar and engine warning
-./test_properties.sh fuel       # fuel bar, fuel percent, fuel warning
+./test_properties.sh fuel       # fuel bar, range, fuel warning
+./test_properties.sh ambient    # outside temperature
 ./test_properties.sh odometer   # odometer km
 ./test_properties.sh telltales  # remaining telltales and lights: ABS, battery, oil,
                                 #   seatbelt, TPMS, brake,
@@ -111,7 +140,7 @@ confirmed without duplicate checks.
 
 The engine warning icon maps to high coolant temperature (≥ 110 °C) because AAOS
 does not expose a generic `CHECK_ENGINE` boolean. The temperature bar turns red
-independently at 90 °C.
+red at the same temperature.
 
 If `adb` is not on PATH:
 
@@ -136,6 +165,12 @@ adb shell cmd car_service inject-vhal-event ENGINE_COOLANT_TEMP 110
 
 # Fuel level in mL. Emulator capacity is commonly 15000 mL.
 adb shell cmd car_service inject-vhal-event FUEL_LEVEL 1500
+
+# Range in metres. UI displays km.
+adb shell cmd car_service inject-vhal-event RANGE_REMAINING 482000
+
+# Outside temperature in °C.
+adb shell cmd car_service inject-vhal-event ENV_OUTSIDE_TEMPERATURE 12.0
 
 # Battery/charging warning (vendor property 0x21400004).
 adb shell cmd car_service inject-vhal-event 0x21400004 1   # warning on
@@ -212,14 +247,21 @@ Cluster/
 │   │       ├── ClusterRepositoryImpl.kt  real Car API implementation
 │   │       └── MockClusterRepository.kt simulation for local dev/reference
 │   └── ui/
-│       ├── ClusterViewModel.kt
-│       ├── ClusterScreen.kt        Compose instrument cluster UI
-│       └── ClusterTheme.kt         Material theme backed by resources
+│       ├── ClusterViewModel.kt     data + selected gauge style
+│       ├── ClusterScreen.kt        scaled canvas, layer cross-fade
+│       ├── theme/                  ClusterTheme (Saira), ClusterDimens (all sizes), ClusterMotion
+│       ├── gauges/                 GaugeScale, RoundGauges, ArcScales layouts
+│       ├── chrome/                 top bar, speed limit, telltales: shared by both styles
+│       ├── components/             ClusterText, telltales, level bars, clock, speed limit, layout helpers
+│       ├── map/                    map area and legibility fades
+│       └── bottombar/              odometer and gauge style switcher
 ├── design/
-│   └── cluster.png                 UI screenshot
+│   ├── cluster_round.png           screenshot, round dials
+│   └── cluster_arc.png             screenshot, arc scales
 ├── res/
-│   ├── drawable/                   telltale icons
-│   └── values/                     colours, dimensions, strings, theme
+│   ├── drawable/                   telltale and control icons (from the design)
+│   ├── font/                       Saira 400/500/600/700
+│   └── values/                     colours, strings, theme
 ├── test_properties.sh              VHAL property walkthrough script
 ├── Android.bp                      Soong build definition
 ├── AndroidManifest.xml

@@ -7,6 +7,12 @@ enum class Gear(val label: String) {
     D("D"),
 }
 
+enum class DriveMode {
+    ECO,
+    COMFORT,
+    SPORT,
+}
+
 data class ClusterData(
     val speedKmh: Int = 0,
     val rpmX1000: Float = 0f,
@@ -14,6 +20,11 @@ data class ClusterData(
     val fuelPercent: Int = 72,
     val coolantTempC: Int = 45,
     val odometerKm: Int = 123,
+    val rangeKm: Int? = null,         // RANGE_REMAINING; null until the VHAL reports it
+    val outsideTempC: Int? = null,    // ENV_OUTSIDE_TEMPERATURE; null until the VHAL reports it
+    // Not provided by the emulator VHAL yet: the repository fills these with mock values
+    val speedLimitKmh: Int? = null,
+    val driveMode: DriveMode = DriveMode.ECO,
     // Telltales
     val absEngaged: Boolean = false,  // ABS_ACTIVE: ABS is currently braking (transient)
     val absFault: Boolean = false,    // VENDOR_ABS_FAULT: ABS system fault (persistent)

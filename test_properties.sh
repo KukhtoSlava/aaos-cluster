@@ -6,7 +6,8 @@
 #   ./test_properties.sh            # full UI walkthrough
 #   ./test_properties.sh drive      # speed, gear, rpm
 #   ./test_properties.sh engine     # coolant temperature and engine warning
-#   ./test_properties.sh fuel       # fuel bar and fuel warning
+#   ./test_properties.sh fuel       # fuel bar, range and fuel warning
+#   ./test_properties.sh ambient    # outside temperature in the top bar
 #   ./test_properties.sh odometer   # odometer
 #   ./test_properties.sh telltales  # UI telltales and lights
 #   ./test_properties.sh check      # only VHAL configs used by this UI
@@ -149,23 +150,43 @@ section_engine() {
 }
 
 section_fuel() {
-    header "FUEL - bar and warning"
+    header "FUEL - bar, range and warning"
     echo "Assumes emulator INFO_FUEL_CAPACITY is 15000 mL."
 
-    step "Full tank, green fuel bar"
+    step "Full tank, full fuel bar, 620 km range"
     inject_and_read FUEL_LEVEL 15000
+    inject_and_read RANGE_REMAINING 620000
     pause 3
 
-    step "72 percent"
+    step "72 percent, 482 km range"
     inject_and_read FUEL_LEVEL 10800
+    inject_and_read RANGE_REMAINING 482000
     pause 3
 
-    step "Low fuel by level, red fuel bar and warning"
+    step "Low fuel by level, amber fuel bar and warning, 60 km range"
     inject_and_read FUEL_LEVEL 1500
+    inject_and_read RANGE_REMAINING 60000
     pause 3
 
     step "Reset fuel"
     inject_and_read FUEL_LEVEL 10800
+    inject_and_read RANGE_REMAINING 482000
+    pause 2
+}
+
+section_ambient() {
+    header "AMBIENT - outside temperature"
+
+    step "3 C"
+    inject_and_read ENV_OUTSIDE_TEMPERATURE 3.0
+    pause 3
+
+    step "12 C"
+    inject_and_read ENV_OUTSIDE_TEMPERATURE 12.0
+    pause 3
+
+    step "Reset to the emulator default, 25 C"
+    inject_and_read ENV_OUTSIDE_TEMPERATURE 25.0
     pause 2
 }
 
@@ -280,6 +301,8 @@ section_check() {
     check_prop PERF_ODOMETER
     check_prop FUEL_LEVEL
     check_prop INFO_FUEL_CAPACITY
+    check_prop RANGE_REMAINING
+    check_prop ENV_OUTSIDE_TEMPERATURE
     check_prop ABS_ACTIVE
     check_prop 0x21400002   # VENDOR_ABS_FAULT
     check_prop 0x21400003   # VENDOR_SEATBELT_DRIVER
@@ -298,6 +321,7 @@ case "$SECTION" in
     drive) section_drive ;;
     engine) section_engine ;;
     fuel) section_fuel ;;
+    ambient) section_ambient ;;
     odometer) section_odometer ;;
     telltales) section_telltales ;;
     check) section_check ;;
@@ -305,11 +329,12 @@ case "$SECTION" in
         section_drive
         section_engine
         section_fuel
+        section_ambient
         section_odometer
         section_telltales
         ;;
     *)
-        echo "Usage: $0 [all|drive|engine|fuel|odometer|telltales|check]"
+        echo "Usage: $0 [all|drive|engine|fuel|ambient|odometer|telltales|check]"
         exit 1
         ;;
 esac

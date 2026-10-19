@@ -16,6 +16,8 @@ import com.autobox.cluster.repository.constants.DEFAULT_FUEL_CAPACITY_ML
 import com.autobox.cluster.repository.constants.DEFAULT_TIRE_PRESSURE_MAX_KPA
 import com.autobox.cluster.repository.constants.ENGINE_WARNING_TEMP_C
 import com.autobox.cluster.repository.constants.LOW_FUEL_PERCENT
+import com.autobox.cluster.repository.constants.MOCK_DRIVE_MODE
+import com.autobox.cluster.repository.constants.MOCK_SPEED_LIMIT_KMH
 import com.autobox.cluster.repository.constants.TIRE_PRESSURE_WARNING_RATIO
 import com.autobox.cluster.repository.constants.VENDOR_ABS_FAULT
 import com.autobox.cluster.repository.constants.VENDOR_BATTERY_FAULT
@@ -23,6 +25,7 @@ import com.autobox.cluster.repository.constants.VENDOR_SEATBELT_DRIVER
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.abs
+import kotlin.math.roundToInt
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,7 +36,9 @@ class ClusterRepositoryImpl @Inject constructor(
     private val context: Context,
 ) : ClusterRepository {
 
-    private val _data = MutableStateFlow(ClusterData())
+    private val _data = MutableStateFlow(
+        ClusterData(speedLimitKmh = MOCK_SPEED_LIMIT_KMH, driveMode = MOCK_DRIVE_MODE)
+    )
     override val data: StateFlow<ClusterData> = _data.asStateFlow()
 
     private val lock = Any()
@@ -214,6 +219,13 @@ class ClusterRepositoryImpl @Inject constructor(
                     }
                 }
             }
+            VehiclePropertyIds.RANGE_REMAINING -> {
+                val meters = v as? Float ?: return
+                _data.update { it.copy(rangeKm = (meters / 1000f).roundToInt().coerceAtLeast(0)) }
+            }
+            VehiclePropertyIds.ENV_OUTSIDE_TEMPERATURE -> {
+                _data.update { it.copy(outsideTempC = (v as? Float ?: return).roundToInt()) }
+            }
             VENDOR_BATTERY_FAULT -> {
                 batteryFaultSignal = booleanValue(v)
                 Log.i(TAG, "VENDOR_BATTERY_FAULT event value=$v fault=$batteryFaultSignal")
@@ -357,6 +369,8 @@ class ClusterRepositoryImpl @Inject constructor(
             Subscription.Builder(VehiclePropertyIds.ENGINE_OIL_LEVEL).build(),
             Subscription.Builder(VehiclePropertyIds.PERF_ODOMETER).setUpdateRateNormal().build(),
             Subscription.Builder(VehiclePropertyIds.FUEL_LEVEL).setUpdateRateNormal().build(),
+            Subscription.Builder(VehiclePropertyIds.RANGE_REMAINING).setUpdateRateNormal().build(),
+            Subscription.Builder(VehiclePropertyIds.ENV_OUTSIDE_TEMPERATURE).setUpdateRateNormal().build(),
             Subscription.Builder(VehiclePropertyIds.ABS_ACTIVE).build(),
             Subscription.Builder(VENDOR_ABS_FAULT).build(),
             Subscription.Builder(VENDOR_SEATBELT_DRIVER).build(),

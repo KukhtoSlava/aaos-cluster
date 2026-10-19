@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.lifecycle.ViewModelProvider
 import com.autobox.cluster.di.ClusterViewModelFactory
 import com.autobox.cluster.ui.ClusterScreen
-import com.autobox.cluster.ui.ClusterTheme
 import com.autobox.cluster.ui.ClusterViewModel
+import com.autobox.cluster.ui.theme.ClusterTheme
 import javax.inject.Inject
 
 class ClusterActivity : ComponentActivity() {
