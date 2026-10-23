@@ -3,15 +3,15 @@
     package="com.autobox.cluster"
     android:sharedUserId="android.uid.system">
 
-    <!-- Speed: PERF_VEHICLE_SPEED -->
+    <!-- Speed: PERF_VEHICLE_SPEED_DISPLAY, PERF_VEHICLE_SPEED as the fallback -->
     <uses-permission android:name="android.car.permission.CAR_SPEED"/>
-    <!-- Gear: GEAR_SELECTION -->
+    <!-- Gear, parking brake: GEAR_SELECTION, PARKING_BRAKE_ON -->
     <uses-permission android:name="android.car.permission.CAR_POWERTRAIN"/>
-    <!-- RPM, oil/coolant temp: ENGINE_RPM, ENGINE_OIL_TEMP, ENGINE_COOLANT_TEMP -->
+    <!-- RPM, coolant temperature, oil level: ENGINE_RPM, ENGINE_COOLANT_TEMP, ENGINE_OIL_LEVEL -->
     <uses-permission android:name="android.car.permission.CAR_ENGINE_DETAILED"/>
     <!-- Fuel level and range: FUEL_LEVEL, RANGE_REMAINING -->
     <uses-permission android:name="android.car.permission.CAR_ENERGY"/>
-    <!-- Fuel capacity: INFO_FUEL_CAPACITY -->
+    <!-- Fuel capacity, driver seat: INFO_FUEL_CAPACITY, INFO_DRIVER_SEAT -->
     <uses-permission android:name="android.car.permission.CAR_INFO"/>
     <!-- Odometer: PERF_ODOMETER -->
     <uses-permission android:name="android.car.permission.CAR_MILEAGE"/>
@@ -19,6 +19,9 @@
     <uses-permission android:name="android.car.permission.CAR_DYNAMICS_STATE"/>
     <!-- Outside temperature: ENV_OUTSIDE_TEMPERATURE -->
     <uses-permission android:name="android.car.permission.CAR_EXTERIOR_ENVIRONMENT"/>
+    <!-- Vendor properties 0x21400002, 0x21400004-0x21400006: ABS and battery faults,
+         speed limit, drive mode -->
+    <uses-permission android:name="android.car.permission.CAR_VENDOR_EXTENSION"/>
     <!-- Exterior lights and turn signals -->
     <uses-permission android:name="android.car.permission.CAR_EXTERIOR_LIGHTS"/>
     <uses-permission android:name="android.car.permission.READ_CAR_EXTERIOR_LIGHTS"/>
@@ -58,6 +61,17 @@
             </intent-filter>
             <meta-data android:name="distractionOptimized" android:value="true"/>
         </activity>
+
+        <!-- Test hook: adb switches the gauge style through it (see GaugeStyleReceiver).
+             DUMP limits senders to the shell and the system. -->
+        <receiver
+            android:name=".settings.GaugeStyleReceiver"
+            android:exported="true"
+            android:permission="android.permission.DUMP">
+            <intent-filter>
+                <action android:name="com.autobox.cluster.action.SET_GAUGE_STYLE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 </manifest>

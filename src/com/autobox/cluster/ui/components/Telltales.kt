@@ -14,12 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import com.autobox.cluster.R
 import com.autobox.cluster.model.ClusterData
@@ -109,11 +107,11 @@ internal fun TelltaleRow(
     items: List<Telltale>,
     iconSize: Dp,
     gap: Dp,
-    arrangement: Alignment.Horizontal,
+    alignment: Alignment.Horizontal,
     modifier: Modifier = Modifier,
 ) {
     val off = colorResource(R.color.cluster_telltale_off)
-    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(gap, arrangement)) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.spacedBy(gap, alignment)) {
         items.forEach { t ->
             Icon(
                 painter = painterResource(t.icon),

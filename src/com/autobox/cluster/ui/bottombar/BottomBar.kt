@@ -1,5 +1,7 @@
 package com.autobox.cluster.ui.bottombar
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -22,10 +24,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.font.FontWeight
 import com.autobox.cluster.R
-import com.autobox.cluster.ui.GaugeStyle
+import com.autobox.cluster.model.GaugeStyle
 import com.autobox.cluster.ui.components.ClusterText
 import com.autobox.cluster.ui.theme.ClusterDimens
 import com.autobox.cluster.ui.theme.CssEase
@@ -42,7 +43,10 @@ internal fun BottomBar(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(ClusterDimens.BottomBar.Gap, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(
+            ClusterDimens.BottomBar.Gap,
+            Alignment.CenterHorizontally,
+        ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         OdometerPill(odometerKm)
@@ -94,20 +98,21 @@ private fun GaugeStyleSwitcher(current: GaugeStyle, onSelect: (GaugeStyle) -> Un
 @Composable
 private fun SwitcherButton(
     style: GaugeStyle,
-    icon: Int,
-    label: Int,
+    @DrawableRes icon: Int,
+    @StringRes label: Int,
     current: GaugeStyle,
     onSelect: (GaugeStyle) -> Unit,
 ) {
     val b = ClusterDimens.BottomBar
     val selected = style == current
+    val selectedBackground = colorResource(R.color.cluster_switch_selected)
     val background by animateColorAsState(
-        targetValue = if (selected) colorResource(R.color.cluster_switch_selected) else colorResource(R.color.cluster_switch_selected).copy(alpha = 0f),
+        targetValue = if (selected) selectedBackground else selectedBackground.copy(alpha = 0f),
         animationSpec = tween(SWITCH_FADE_MS, easing = CssEase),
         label = "switcherBackground",
     )
     val tint by animateColorAsState(
-        targetValue = if (selected) colorResource(R.color.cluster_accent) else colorResource(R.color.cluster_text_muted),
+        targetValue = colorResource(if (selected) R.color.cluster_accent else R.color.cluster_text_muted),
         animationSpec = tween(SWITCH_FADE_MS, easing = CssEase),
         label = "switcherTint",
     )

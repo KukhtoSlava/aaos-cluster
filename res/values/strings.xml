@@ -11,13 +11,15 @@
     <string name="outside_temp_unknown">--°C</string>
     <string name="drive_mode_label">MODE</string>
     <string name="drive_mode_eco">ECO</string>
-    <string name="drive_mode_comfort">COMFORT</string>
+    <string name="drive_mode_normal">NORMAL</string>
     <string name="drive_mode_sport">SPORT</string>
 
-    <!-- Fuel / coolant -->
+    <!-- Fuel / coolant bars -->
     <string name="range_format">%1$d km</string>
     <string name="range_unknown">-- km</string>
     <string name="coolant_format">%1$d°</string>
+    <string name="fuel_label">Fuel level</string>
+    <string name="coolant_label">Coolant temperature</string>
 
     <!-- Odometer -->
     <string name="odo_label">ODO</string>
@@ -44,6 +46,4 @@
     <string name="telltale_tpms">Tyre pressure</string>
     <string name="telltale_turn_left">Left turn signal</string>
     <string name="telltale_turn_right">Right turn signal</string>
-    <string name="fuel_label">Fuel level</string>
-    <string name="coolant_label">Coolant temperature</string>
 </resources>

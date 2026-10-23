@@ -76,14 +76,14 @@ internal fun ClusterChrome(data: ClusterData, clock: String, flasherLit: Boolean
             items = leftTelltales(data),
             iconSize = D.TelltaleSize,
             gap = D.TelltaleGap,
-            arrangement = Alignment.CenterHorizontally,
+            alignment = Alignment.CenterHorizontally,
             modifier = Modifier.at(D.SideMargin, D.TelltaleY).width(D.GroupWidth),
         )
         TelltaleRow(
             items = rightTelltales(data),
             iconSize = D.TelltaleSize,
             gap = D.TelltaleGap,
-            arrangement = Alignment.CenterHorizontally,
+            alignment = Alignment.CenterHorizontally,
             modifier = Modifier.at(D.RightX, D.TelltaleY).width(D.GroupWidth),
         )
     }
@@ -135,6 +135,6 @@ private fun DriveModeLabel(mode: DriveMode, accent: Color) {
 @StringRes
 private fun DriveMode.labelRes(): Int = when (this) {
     DriveMode.ECO -> R.string.drive_mode_eco
-    DriveMode.COMFORT -> R.string.drive_mode_comfort
+    DriveMode.NORMAL -> R.string.drive_mode_normal
     DriveMode.SPORT -> R.string.drive_mode_sport
 }

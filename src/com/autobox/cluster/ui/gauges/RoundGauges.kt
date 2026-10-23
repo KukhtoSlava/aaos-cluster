@@ -37,6 +37,8 @@ import kotlin.math.sin
 
 private val D = ClusterDimens.Round
 
+private const val REDZONE_ALPHA = 0.22f
+
 /** Angle from 12 o'clock, clockwise, of [fraction] of full scale. */
 private fun dialAngle(fraction: Float): Float = D.START_ANGLE + D.SWEEP * fraction
 
@@ -160,7 +162,8 @@ private fun RoundDial(
             drawCircle(rim, radius = D.RimRadius.toPx(), center = center, style = Stroke(D.RimWidth.toPx()))
 
             scale.redFrom?.let {
-                dialArc(redline.copy(alpha = REDZONE_ALPHA), D.RedzoneRadius, scale.fraction(it), 1f, D.RedzoneWidth, StrokeCap.Butt)
+                val redzone = redline.copy(alpha = REDZONE_ALPHA)
+                dialArc(redzone, D.RedzoneRadius, scale.fraction(it), 1f, D.RedzoneWidth, StrokeCap.Butt)
             }
             dialArc(track, D.TrackRadius, 0f, 1f, D.TrackWidth, StrokeCap.Round)
             if (fraction > 0f) dialArc(color, D.TrackRadius, 0f, fraction, D.TrackWidth, StrokeCap.Round)
@@ -226,8 +229,6 @@ private fun RoundDial(
         }
     }
 }
-
-private const val REDZONE_ALPHA = 0.22f
 
 /** Arc of the dial scale between two fractions of full scale. */
 private fun DrawScope.dialArc(color: Color, radius: Dp, from: Float, to: Float, width: Dp, cap: StrokeCap) {

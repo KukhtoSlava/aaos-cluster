@@ -22,6 +22,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.autobox.cluster.R
+import com.autobox.cluster.model.GaugeStyle
 import com.autobox.cluster.ui.bottombar.BottomBar
 import com.autobox.cluster.ui.chrome.ClusterChrome
 import com.autobox.cluster.ui.components.at
@@ -40,8 +41,9 @@ private const val HIDDEN_LAYER_SCALE = 0.97f
 
 @Composable
 fun ClusterScreen(viewModel: ClusterViewModel) {
-    val data by viewModel.data.collectAsState()
-    val gaugeStyle by viewModel.gaugeStyle.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+    val data = uiState.data
+    val gaugeStyle = uiState.gaugeStyle
     val clock = rememberClockText()
     val flasherLit = rememberFlasher(data.turnSignalLeft || data.turnSignalRight)
 

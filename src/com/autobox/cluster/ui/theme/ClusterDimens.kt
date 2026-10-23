@@ -1,6 +1,5 @@
 package com.autobox.cluster.ui.theme
 
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 

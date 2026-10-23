@@ -1,6 +1,5 @@
 package com.autobox.cluster.ui.theme
 
-import androidx.compose.foundation.background
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.darkColorScheme
@@ -14,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.autobox.cluster.R
 
 // Saira, static instances of the variable font (OFL, see OFL-Saira.txt)
-val Saira = FontFamily(
+internal val Saira = FontFamily(
     Font(R.font.saira_regular, FontWeight.Normal),
     Font(R.font.saira_medium, FontWeight.Medium),
     Font(R.font.saira_semibold, FontWeight.SemiBold),

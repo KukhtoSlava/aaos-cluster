@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import com.autobox.cluster.R
 import com.autobox.cluster.model.ClusterData
@@ -79,7 +78,7 @@ internal fun FuelBar(data: ClusterData, width: Dp, modifier: Modifier = Modifier
         fraction = data.fuelPercent / 100f,
         text = data.rangeKm?.let { stringResource(R.string.range_format, it) }
             ?: stringResource(R.string.range_unknown),
-        fill = if (data.fuelWarning) colorResource(R.color.cluster_telltale_amber) else colorResource(R.color.cluster_bar_fill),
+        fill = colorResource(if (data.fuelWarning) R.color.cluster_telltale_amber else R.color.cluster_bar_fill),
         width = width,
         modifier = modifier,
     )
@@ -92,7 +91,7 @@ internal fun CoolantBar(data: ClusterData, width: Dp, modifier: Modifier = Modif
         label = stringResource(R.string.coolant_label),
         fraction = (data.coolantTempC - COOLANT_MIN_C) / (COOLANT_MAX_C - COOLANT_MIN_C),
         text = stringResource(R.string.coolant_format, data.coolantTempC),
-        fill = if (data.engineWarning) colorResource(R.color.cluster_telltale_red) else colorResource(R.color.cluster_bar_fill),
+        fill = colorResource(if (data.engineWarning) R.color.cluster_telltale_red else R.color.cluster_bar_fill),
         width = width,
         modifier = modifier,
     )

@@ -45,6 +45,6 @@ internal fun speedColor(data: ClusterData): Color {
 /** Tachometer colour: accent, red from the redline. */
 @Composable
 internal fun rpmColor(data: ClusterData): Color =
-    if (RpmScale.isRedTick(data.rpmX1000)) colorResource(R.color.cluster_redline) else colorResource(R.color.cluster_accent)
+    colorResource(if (RpmScale.isRedTick(data.rpmX1000)) R.color.cluster_redline else R.color.cluster_accent)
 
 internal fun formatRpm(rpmX1000: Float): String = String.format(Locale.US, "%.1f", rpmX1000.coerceIn(0f, RpmScale.max))

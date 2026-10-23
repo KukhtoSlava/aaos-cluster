@@ -105,7 +105,7 @@ class MockClusterRepository @Inject constructor() : ClusterRepository {
         // City and parking at 50, highway at 120, acceleration run at 90
         val (speedLimit, driveMode) = when {
             scenarioTick < 60  -> 50 to DriveMode.ECO
-            scenarioTick < 150 -> 120 to DriveMode.COMFORT
+            scenarioTick < 150 -> 120 to DriveMode.NORMAL
             scenarioTick < 200 -> 90 to DriveMode.SPORT
             else               -> 50 to DriveMode.ECO
         }
