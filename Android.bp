@@ -5,7 +5,15 @@ package {
 android_app {
     name: "Cluster",
     manifest: "AndroidManifest.xml",
-    srcs: ["src/**/*.kt"],
+    srcs: [
+        "src/**/*.kt",
+        // IClusterMap: the cluster map that Navigation draws into our surface
+        ":autobox-navigation-cluster-aidl",
+    ],
+    aidl: {
+        // android.view.Surface (IClusterMap) is declared there, not in framework's AIDL path
+        include_dirs: ["frameworks/native/aidl/gui"],
+    },
     resource_dirs: ["res"],
     libs: ["android.car"],
     static_libs: [

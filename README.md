@@ -16,9 +16,11 @@ full-bleed map area and two switchable gauge layouts.
 |:-:|:-:|
 | ![Arc scales, parked](design/cluster_arc_off.png) | ![Arc scales, all indicators on](design/cluster_arc_on.png) |
 
+"Parked": the map follows the parked car, no route.
 "All indicators on": D at 82 km/h over a 60 km/h limit, SPORT, hazard lights,
 every warning telltale, low and high beam (parking lights exclude the low beam
-in `HEADLIGHTS_STATE`, so they stay off).
+in `HEADLIGHTS_STATE`, so they stay off), and guidance on the map: the route,
+the instruction arrows and the next maneuver card.
 
 ---
 
@@ -70,7 +72,15 @@ subscription delivers the current value first, then the changes.
     redline from 6.5) right
   - **Arc scales**: segmented arcs on the screen edges with large speed and RPM readouts
 - Top bar: turn signals, P R N D strip, clock, outside temperature, drive mode
-- Map area under the gauges. Empty for now: the map is integrated next.
+- Map area under the gauges: a TomTom map drawn by the Navigation app
+  (`vendor/autobox/apps/Navigation`). `MapView` hands the surface of its
+  SurfaceView to Navigation's `ClusterMapService` (`IClusterMap`, signature
+  permission `com.autobox.navigation.permission.CLUSTER_MAP`) together with the
+  insets the gauges cover (`ClusterDimens.Map`). Cluster runs as the system user
+  and binds Navigation of the current user, rebinding on a user switch. Until
+  Navigation draws, the area shows the plain map colour. The AIDL comes from
+  the Navigation checkout (filegroup `autobox-navigation-cluster-aidl`), so
+  Cluster needs it to build.
 - Speed turns amber above the speed limit
 - Fuel bar with remaining range, amber on low fuel
 - Coolant bar in °C, red at the engine warning temperature
@@ -287,7 +297,7 @@ Cluster/
 │       ├── gauges/                 GaugeScale, RoundGauges, ArcScales layouts
 │       ├── chrome/                 top bar, speed limit, telltales: shared by both styles
 │       ├── components/             ClusterText, telltales, level bars, clock, speed limit, layout helpers
-│       ├── map/                    map area and legibility fades
+│       ├── map/                    map surface, Navigation connection, legibility fades
 │       └── bottombar/              odometer and gauge style switcher
 ├── design/                         screenshots: round and arc, parked and all indicators on
 ├── res/

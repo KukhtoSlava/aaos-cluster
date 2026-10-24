@@ -19,6 +19,16 @@ internal object ClusterDimens {
     val Width = 1848.dp
     val Height = 792.dp
 
+    /**
+     * The part of the map left free by the gauges and the bars, as insets from the
+     * canvas edges. Navigation keeps the car and its maneuver card inside it.
+     */
+    object Map {
+        val InsetSide = 600.dp
+        val InsetTop = 250.dp
+        val InsetBottom = 190.dp
+    }
+
     /** Gradients that fade the map into the ground under the gauges. */
     object Fade {
         val TopHeight = 230.dp
